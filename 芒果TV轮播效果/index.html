@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	html,body,div,span,ul,li,dl,dd,h1,h2,h3,p{margin:0;padding:0;}
+	#banner{width:100%;position:relative;}
+	#banner .banner_con{width:1000px;height:430px;background:red;margin:0 auto;}
+	#banner .banner_con .b_pic{width:1000px;height:430px;overflow:hidden;/*溢出隐藏*/}
+	#banner .banner_con .b_pic ul li{width:1000px;height:430px;list-style:none;}
+	#banner .b_nav{width:770px;height:50px;position:absolute;bottom:30px;margin-left:-385px;left:50%;letter-spacing:-3px;}
+	#banner .b_nav span{width:90px;height:50px;display:inline-block;border:1px solid #fff;background:#000;opacity:0.5;/*透明度 0-1*/}
+	#banner .b_nav span.active{border:2px solid #ff6600;opacity:1;}
+	#banner .b_nav span img{vertical-align:top;width:100%;height:100%;}
+  </style>
+ </head>
+ <body>
+	<!-- 
+	1、专门有一个放图片展示区  b_pic
+	2、专门有个放到导航的位置  b_nav 
+	-->
+	<div id="banner">
+		<div class="banner_con">
+			<!--图片区 b_pic 开始-->
+			<div class="b_pic">
+				<ul>
+					<li>
+						<img src="images/1.jpg" width="1000" height="430" alt="" />
+					</li>
+					<li>
+						<img src="images/2.jpg" width="1000" height="430" alt="" />
+					</li>
+					<li>
+						<img src="images/3.jpg" width="1000" height="430" alt="" />
+					</li>
+					<li>
+						<img src="images/4.jpg" width="1000" height="430" alt="" />
+					</li>
+					<li>
+						<img src="images/5.jpg" width="1000" height="430" alt="" />
+					</li>
+					<li>
+						<img src="images/6.jpg" width="1000" height="430" alt="" />
+					</li>
+					<li>
+						<img src="images/7.jpg" width="1000" height="430" alt="" />
+					</li>
+					<li>
+						<img src="images/8.jpg" width="1000" height="430" alt="" />
+					</li>
+				</ul>
+			</div>
+			<!--结束-图片区 b_pic-->
+		</div>
+		<!--图片导航菜单-->
+		<div class="b_nav">
+			<span class=""><img src="images/1-1.png" alt="" /></span>
+			<span><img src="images/2-2.jpg" alt="" /></span>
+			<span><img src="images/3-3.png" alt="" /></span>
+			<span><img src="images/4-4.jpg" alt="" /></span>
+			<span><img src="images/1-1.png" alt="" /></span>
+			<span><img src="images/1-1.png" alt="" /></span>
+			<span><img src="images/1-1.png" alt="" /></span>
+			<span><img src="images/1-1.png" alt="" /></span>
+		</div>
+		<!--图片导航菜单-->
+	</div>
+	<div id="content" style="width: 1000px;height: 430px;background: red;margin-left: 250px"></div>
+	<!--引入js的类库文件jquery文件 -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<!--调用js封装好的方法-->
+<!--	利用js函数面向对象和jquery实现首页轮播-->
+	<script type="text/javascript">
+		function start(){
+			var  _index = 0;
+
+			function slide_pic()
+			{
+				if(_index<8){_index = _index + 1}
+				else{_index=0}
+			}
+			slide_pic.prototype = {
+				pic_num : '7',
+				pic_slide : function() {
+					$("#banner .banner_con .b_pic ul li").eq(_index).show().siblings().hide();
+				}
+			}
+			function slide()
+			{
+				var obj = new slide_pic();
+				obj.pic_slide(_index);
+			}
+		/*	var _index =*/ setInterval(slide,1000)
+
+
+		}
+		start();
+/*jquery实现轮播*/
+ /*      function onmouseover(){
+		   var _index = 0;
+		   //hover鼠标移入事件  function(){}
+		   //siblings 是除了自己 的同级兄弟元素
+
+		   $("#banner .b_nav span").click(function(){
+			   _index = $(this).index();//index()这个是jquery里面 找元素下标
+
+			   //$(this).addClass("active").siblings().removeClass("active");
+			   //鼠标一移入筛选下标指定的banner .banner_con .b_pic ul li第几个li元素
+			   $("#banner .banner_con .b_pic ul li").eq(_index).show().siblings().hide();
+		   },function(){
+
+		   })
+	   }
+		onmouseover();*/
+/*		js实现点击*/
+		function run() {
+			var photo = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg', 'images/4.jpg', 'images/4.jpg', 'images/5.jpg', 'images/6.jpg', 'images/7.jpg', 'images/8.jpg']
+			var index = 0;
+			var content=document.getElementById('content');
+			var oSpan = document.getElementsByTagName('span');
+			content.style.background="url("+photo[index]+")";
+			for (var i = 0; i < oSpan.length; i++) {
+				oSpan[i].index = i;
+
+				oSpan[i].onclick = function () {
+				index = this.index;
+				//	document.body.style.background = "url('+photo[this.index]+')";*/
+
+					content.style.background="url("+photo[this.index]+")";
+
+				}
+				/*	oSpan.onclick=function(){
+				document.body.style.background="url(images/7.jpg)";
+				//alert("ss");
+
+			}
+*/
+		}
+			}
+		run();
+
+
+	</script>
+ </body>
+</html>
